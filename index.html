@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #output {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #inputField {
+            font-size: 16px;
+            padding: 8px;
+            margin-top: 10px;
+        }
+
+        #submitButton {
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guess the Number Game</h1>
+
+    <p>Try to guess the number between 1 and 100:</p>
+
+    <div id="output"></div>
+
+    <input type="number" id="inputField" placeholder="Enter your guess" />
+    <br>
+    <button onclick="submitGuess()" id="submitButton">Submit Guess</button>
+
+    <script>
+        // Generate a random number between 1 and 100
+        const secretNumber = Math.floor(Math.random() * 100) + 1;
+
+        let attempts = 0;
+
+        function submitGuess() {
+            const guess = parseInt(document.getElementById("inputField").value);
+
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                alert("Please enter a valid number between 1 and 100.");
+            } else {
+                attempts++;
+
+                const output = document.getElementById("output");
+
+                if (guess === secretNumber) {
+                    output.innerHTML = `Congratulations! You guessed the number ${secretNumber} in ${attempts} attempts.`;
+                    document.getElementById("inputField").setAttribute("disabled", "true");
+                    document.getElementById("submitButton").setAttribute("disabled", "true");
+                } else if (guess < secretNumber) {
+                    output.innerHTML = `Too low! Try again. Attempts: ${attempts}`;
+                } else {
+                    output.innerHTML = `Too high! Try again. Attempts: ${attempts}`;
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
